@@ -1,64 +1,73 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Pocket Broker
+An application made to track prices of cryptocurrencies and allow users to view and set events of interest to be notified by.
+Ambition; implement a system akin to a stock trainer which would allow users to set event related to price changes to purchase and sell cryptocurrency.
 
-## Available Scripts
+## Tech Stack
+React, Flask, Restx, Docker, CoinGecko API
 
-In the project directory, you can run:
+#### API URL
+api.coingecko.com/api/v3
 
-### `yarn start`
+## Front-End Features
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+A user should be able to sign-up and login/logout and be authenticated.
+User should be able to select cryptos to follow and make
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### User
+- name
+- address
+- city,
+- state,
+- zip_code
 
-### `yarn test`
+### Watchlist
+- user
+- crypto
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Cryptos (Separate Table tied in with Portfolio?)
+- name(forEach): String, the name of the cryptocurrency
 
-### `yarn build`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## without API
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+### Price
+- value: float,
+- timestamp: datetime,
+- crypto_id
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### EventConfig
+- watchlist_id
+- percent_change
+- timeframe
+- user_id
 
-### `yarn eject`
+### Events
+- Timeframe: Datetime, time of concern; can be a day to a week/month. Meant to be of basis for percentages of average changes
+- start_price: Price 1 (time) ago
+- end_price: Price Now
+- event_config_id
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Assessed Timeframe 1 week [ **************** ]
+Event happens @ 2 data point            localmin[ *]    localmax[* ]
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+(Bonus fields)
+- Sellout number(nullable): numeric, USD value of crypto you'd be willing to liquidate your holdings for
+- Sellout price(nullable): numeric, if this number is reached, trigger a sell event
+- Buyin number(nullable): numeric, USD value of crypto you'd be willing to trigger a massive buyin of that crypto
+- Buyin price(nullable): numeric, if this number is reached trigger a buy event
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Notifications
+- Time: datetime, when the event was triggered
+- crypto: string, the name of the crypto involved
+- price: numeric, the current price of the crypto at the time of change
+- percentage of change: percentage, the total % change of the event.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Portfolio
+- Cryptocurrency: boolean, allows user to select and choose which cryptos to obtain information for
+- user_id
 
-## Learn More
+### Assets
+- join for crypto and protfolio
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+### Wallet (Bonus TODO)
+- relevant banking information

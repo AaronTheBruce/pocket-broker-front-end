@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import { Login } from "./components/auth/Login";
 import { SignUp } from "./components/auth/SignUp";
@@ -7,24 +7,25 @@ import { SignUp } from "./components/auth/SignUp";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { CssBaseline } from "@material-ui/core";
 import { PocketBrokerContext } from './context/PocketBrokerContext';
+import theme from "./theme"
 
 function App() {
-  const { authToken, currentUser, userID } = useContext(PocketBrokerContext);
+  // const { authToken, currentUser, userID } = useContext(PocketBrokerContext);
   return (
     <>
-      <h1>Hello world!</h1>
+      <h1>Dia Duit!</h1>
       <ThemeProvider theme={theme}>
-        <Router>
+        <BrowserRouter>
           {/* {authToken !== null ? (
-          <UserNavBar currentUser={currentUser} />
-        ) : (
-          <NarBar />
-        )} */}
+            <UserNavBar currentUser={currentUser} />
+          ) : (
+            <NarBar />
+          )} */}
           <Switch>
             <Route path="/login" component={Login} />
             <Route path="/sign-up" component={SignUp} />
           </Switch>
-        </Router>
+        </BrowserRouter>
       </ThemeProvider>
     </>
   );

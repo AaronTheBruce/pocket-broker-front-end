@@ -43,20 +43,8 @@ export const AppWithContext = () => {
   };
 
   return (
-    <PocketBrokerContext.Provider
-      value={{
-        authToken,
-        isLoggedIn,
-        login,
-        logOut,
-        currentUser,
-        setCurrentUser,
-        userId,
-        setUserId,
-        getUser,
-        authAxios,
-        url,
-      }}
+    <PocketBrokerContext.Provider 
+      value={{authToken, isLoggedIn, login, logOut, currentUser, setCurrentUser, userId, setUserId, getUser, authAxios, url, }}
     >
       <App accessToken={accessToken} />
     </PocketBrokerContext.Provider>

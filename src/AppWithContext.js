@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import App from "./App";
 import {PocketBrokerContext} from "./context/PocketBrokerContext";
+import { makeStyles } from "@material-ui/core/styles";
 import Axios from "axios";
 import url from "./url-config";
 
@@ -11,6 +12,19 @@ export const AppWithContext = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(!accessToken);
   const [currentUser, setCurrentUser] = useState();
   const [userId, setUserId] = useState(user_id);
+
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      flexGrow: 1,
+    },
+    paper: {
+      padding: theme.spacing(2),
+      textAlign: 'center',
+      color: theme.palette.text.primary,
+    }
+  }));
+
+  const classes = useStyles();
 
   const authAxios = Axios.create({
     baseURL: url,
@@ -43,10 +57,11 @@ export const AppWithContext = () => {
   };
 
   return (
-    <PocketBrokerContext.Provider 
+    <PocketBrokerContext.Provider
+      className={classes.paper}
       value={{authToken, isLoggedIn, login, logOut, currentUser, setCurrentUser, userId, setUserId, getUser, authAxios, url, }}
     >
-      <App accessToken={accessToken} />
+      <App accessToken={accessToken} className={classes.paper}/>
     </PocketBrokerContext.Provider>
   )
 

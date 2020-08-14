@@ -17,6 +17,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
+// May not need for storing images
 const storage = firebase.storage();
 
 export {storage, firebase as default };

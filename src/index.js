@@ -4,8 +4,8 @@ import './index.css';
 import { AppWithContext } from './AppWithContext';
 
 ReactDOM.render(
-  <React.StrictMode>
+  <React.Fragment>
     <AppWithContext />
-  </React.StrictMode>,
+  </React.Fragment>,
   document.getElementById('root')
 );

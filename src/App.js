@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import { Login } from "./components/auth/Login";
 import { SignUp } from "./components/auth/SignUp";
+import { Home } from "./components/protectedRoutes/Home";
 
 import { ThemeProvider } from "@material-ui/core/styles";
 import { CssBaseline } from "@material-ui/core";
@@ -13,7 +14,7 @@ function App() {
   // const { authToken, currentUser, userID } = useContext(PocketBrokerContext);
   return (
     <>
-      <h1>Dia Duit!</h1>
+      <h1>Dia Duit! Failte chun Pocket Broker!</h1>
       <ThemeProvider theme={theme}>
         <BrowserRouter>
           {/* {authToken !== null ? (
@@ -22,6 +23,7 @@ function App() {
             <NarBar />
           )} */}
           <Switch>
+            <Route exact path="/" component={Home} />
             <Route path="/login" component={Login} />
             <Route path="/sign-up" component={SignUp} />
           </Switch>

@@ -26,11 +26,37 @@ export const Graph = (props) => {
   const [endDatetime, setEndDatetime] = useState("");
   const [currentDate, setCurrentDate] = useState("");
 
+  // Unix Epoch TimeFrames in seconds
+  const one_week_unix = 604800;
+  const one_day_unix = 86400;
+  const one_month_unix = 2629743;
+  const one_year_unix = 31556926;
+  // const daysOfTheWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const monthsOfTheYear = ["Jan", "Feb", "Mar", "Apl", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
+  const unixToDate = (unix) => {
+    // convert to milliseconds
+    let date = new Date(unix * 1000);
+    let month = monthsOfTheYear[date.getMonth()];
+    // let day = daysOfTheWeek[date.getDay()];
+    let year = date.getFullYear();
+    let dateNum = date.getDate();
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let seconds = date.getSeconds();
+    let newDate = `${year} ${month} ${dateNum} ${hours}:${minutes}:${seconds}`;
+    return new Date(newDate);
+  }
 
-  const unixToDate = () => { }
-
-  const dateToUnix = () => { }
+  const dateToUnix = (date) => {
+    let year = date.getFullYear();
+    let month = date.getMonth();
+    let day = date.getDate();
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let seconds = date.getSeconds();
+    return Date.UTC(year, month, day, hours, minutes, seconds);
+  }
 
   const generateGraph = (timeframe, crypto_name) => {
 

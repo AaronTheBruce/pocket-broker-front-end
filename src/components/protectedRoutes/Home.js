@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Typography, Container, CssBaseline, Paper, IconButton } from "@material-ui/core";
-import Graph from './Graph';
+import { Graph } from "./Graph.js";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,7 +28,7 @@ export const Home = () => {
             </Paper>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Paper className={classes.paper} style={{ height: '500px',  }}><Graph /></Paper>
+            <Paper className={classes.paper} style={{ height: '500px', }}><Graph /></Paper>
           </Grid>
           <Grid item xs={6} sm={3}>
             <Paper className={classes.paper} style={{ height: '500px' }}>Watch List</Paper>

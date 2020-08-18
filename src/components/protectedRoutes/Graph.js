@@ -1,5 +1,7 @@
-import React, { Component, useState, useCallback } from "react";
+import React, { Component, useState, useEffect, useCallback } from "react";
 import CanvasJSReact from "../../assets/canvasjs.react";
+import { url } from "../../url-config";
+import Axios from "axios";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const coinGecko = "api.coingecko.com/api/v3";
@@ -7,6 +9,7 @@ const coinGecko = "api.coingecko.com/api/v3";
 
 export const Graph = (props) => {
 
+  // sample data for demonstrative purposes (Temporary)
   const memoizeGenerateRandomData = useCallback(
     (noOfDps) => {
       var xVal = 1, yVal = 100;
@@ -20,15 +23,18 @@ export const Graph = (props) => {
     },
     [],
   );
+
+  // states
+  const {getUser, userId, authAxios} = useContext(PocketBrokerContext);
   const [cryptoName, setCryptoName] = useState("bitcoin");
-  const [timeFrame, setTimeframe] = useState("Day");
+  const [timeFrame, setTimeframe] = useState("day");
   const [startDatetime, setStartDatetime] = useState("");
   const [endDatetime, setEndDatetime] = useState("");
   const [currentDate, setCurrentDate] = useState("");
 
   // Unix Epoch TimeFrames in seconds
-  const one_week_unix = 604800;
   const one_day_unix = 86400;
+  const one_week_unix = 604800;
   const one_month_unix = 2629743;
   const one_year_unix = 31556926;
   // const daysOfTheWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -58,26 +64,58 @@ export const Graph = (props) => {
     return Date.UTC(year, month, day, hours, minutes, seconds);
   }
 
-  const generateGraph = (timeframe, crypto_name) => {
+  const getDayStart = () => {
+    let today = new Date();
+    today.setHours(0)
+    today.setMinutes(0)
+    today.setSeconds(0)
+    today.setMilliseconds(0);
+    return today;
+  }
 
-    setCurrentDate = new Date();
-
-    if (timeframe.toLowerCase() === "day") {
-      setStartDatetime()
+  const getTimeAgo = (timeframe) => {
+    let now = new Date();
+    now = dateToUnix(now);
+    let start;
+    switch(timeframe){
+      case timeframe.toLowerCase() === "day":
+        start = dateToUnix(getDayStart());
+        break;
+      case timeframe.toLowerCase() === "week":
+        start = now - one_week_unix;
+        break;
+      case timeframe.toLowerCase() === "month":
+        start = now - one_month_unix;
+        break;
+      case timeframe.toLowerCase() === "year":
+        start = now - one_year_unix;
+        break;
+      default:
+        return "Invalid timeframe";
     }
-    // const data = `${coinGecko}/coins/${crypto_name}/market_chart/range?vs_currency=usd&from=${}&to=${}`
+    return unixToDate(start);
+  }
 
+  const getDataSet = (crypto, timeframe,) => {
+    let start_time = getTimeAgo(timeframe);
+    let end_time = Date.now();
+    const data = `${coinGecko}/coins/${crypto}/market_chart/range?vs_currency=usd&from=${start_time}&to=${end_time}`;
+    if(!data){
+      return "Data is Bad, check getDataSet"
+    }
+    // data = fetch(``);
+    return data;
   }
 
   const options = {
     theme: "light2", // "light1", "dark1", "dark2"
     animationEnabled: true,
-    zoomEnabled: true,
+    zoomEnabled: false,
     title: {
-      text: "Try Zooming and Panning"
+      text: `${cryptoName}`
     },
     data: [{
-      type: "area",
+      type: "line",
       dataPoints: memoizeGenerateRandomData(500)
     }]
   }

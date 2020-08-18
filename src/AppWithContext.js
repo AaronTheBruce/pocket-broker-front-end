@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import App from "./App";
 import {PocketBrokerContext} from "./context/PocketBrokerContext";
 import { makeStyles } from "@material-ui/core/styles";
+import Axios from "axios";
 import url from "./url-config";
 
 export const AppWithContext = () => {

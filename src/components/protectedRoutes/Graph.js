@@ -1,6 +1,7 @@
-import React, { Component, useState, useEffect, useCallback } from "react";
+import React, { Component, useState, useEffect, useCallback, useContext } from "react";
 import CanvasJSReact from "../../assets/canvasjs.react";
 import { url } from "../../url-config";
+import { PocketBrokerContext } from "../../context/PocketBrokerContext";
 import Axios from "axios";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
@@ -25,7 +26,7 @@ export const Graph = (props) => {
   );
 
   // states
-  const {getUser, userId, authAxios} = useContext(PocketBrokerContext);
+  const { getUser, userId, authAxios } = useContext(PocketBrokerContext);
   const [cryptoName, setCryptoName] = useState("bitcoin");
   const [timeFrame, setTimeframe] = useState("day");
   const [startDatetime, setStartDatetime] = useState("");
@@ -77,7 +78,7 @@ export const Graph = (props) => {
     let now = new Date();
     now = dateToUnix(now);
     let start;
-    switch(timeframe){
+    switch (timeframe) {
       case timeframe.toLowerCase() === "day":
         start = dateToUnix(getDayStart());
         break;
@@ -96,15 +97,16 @@ export const Graph = (props) => {
     return unixToDate(start);
   }
 
-  const getDataSet = (crypto, timeframe,) => {
+  const getDataSet = async (crypto, timeframe,) => {
     let start_time = getTimeAgo(timeframe);
     let end_time = Date.now();
     const data = `${coinGecko}/coins/${crypto}/market_chart/range?vs_currency=usd&from=${start_time}&to=${end_time}`;
-    if(!data){
+    if (!data) {
       return "Data is Bad, check getDataSet"
     }
-    // data = fetch(``);
-    return data;
+    data = await fetch(data);
+    let json = data.json();
+    return json;
   }
 
   const options = {

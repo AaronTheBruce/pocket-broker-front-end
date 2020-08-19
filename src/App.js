@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import { Login } from "./components/auth/Login";
@@ -6,8 +6,8 @@ import { SignUp } from "./components/auth/SignUp";
 import { Home } from "./components/protectedRoutes/Home";
 import { ProtectedRoute } from "./components/auth/ProtectedRoute";
 import { ThemeProvider, makeStyles } from "@material-ui/core/styles";
-import { CssBaseline } from "@material-ui/core";
-import { PocketBrokerContext } from './context/PocketBrokerContext';
+// import { CssBaseline } from "@material-ui/core";
+// import { PocketBrokerContext } from './context/PocketBrokerContext';
 // import { makeStyles } from "@material-ui/core/styles";
 import theme from "./theme"
 

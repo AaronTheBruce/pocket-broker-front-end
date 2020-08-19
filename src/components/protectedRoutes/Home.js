@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Typography, Container, CssBaseline, Paper, IconButton } from "@material-ui/core";
+import { Grid, Container, CssBaseline, Paper, IconButton } from "@material-ui/core";
 import { Graph } from "./Graph.js";
 
 const useStyles = makeStyles((theme) => ({
@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
 
 export const Home = () => {
   const classes = useStyles();
+  const [cryptoName, setCryptoName] = useState("bitcoin");
+  const [timeFrame, setTimeFrame] = useState("day");
+  // const [startDatetime, setStartDatetime] = useState("");
 
   return (
     <React.Fragment>
@@ -27,19 +30,23 @@ export const Home = () => {
               <h1>Dia Duit! Failte chun Pocket Broker!</h1>
             </Paper>
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <Paper className={classes.paper} style={{ height: '500px', }}><Graph /></Paper>
+          <Grid item xs={12} sm={8}>
+            <Paper
+              className={classes.paper}
+              style={{ height: '500px', }}>
+              <Graph cryptoName={cryptoName} timeFrame={timeFrame} />
+            </Paper>
           </Grid>
           <Grid item xs={6} sm={3}>
             <Paper className={classes.paper} style={{ height: '500px' }}>Watch List</Paper>
           </Grid>
-          <Grid item xs={6} sm={3}>
-            <IconButton className="fa fa-plus-circle">Notification</IconButton>
+          <Grid item xs={6} sm={1}>
+            <IconButton className="fa fa-plus-circle">Notif</IconButton>
           </Grid>
-          <Grid item xs={6} sm={3}>
+          <Grid item xs={6} sm={4}>
             <Paper className={classes.paper}>Event Config</Paper>
           </Grid>
-          <Grid item xs={6} sm={3}>
+          <Grid item xs={6} sm={4}>
             <Paper className={classes.paper}>Stats</Paper>
           </Grid>
           {/* <Grid item xs={6} sm={3}>
@@ -49,6 +56,7 @@ export const Home = () => {
             <Paper className={classes.paper}>xs=6 sm=3</Paper>
           </Grid> */}
         </Grid>
+        {/* <Button onClick={e => console.log(timeFrame)}>Test</Button> */}
       </Container>
     </React.Fragment>
   )

@@ -36,7 +36,7 @@ export const Graph = (props) => {
     // converts to eastern standard time for
     unix += (one_hour_unix * 4);
     // converts to milliseconds
-    return new Date(unix*1000);
+    return new Date(unix * 1000);
   }
 
   // returns unix as seconds
@@ -106,12 +106,32 @@ export const Graph = (props) => {
       let data = await fetch(api);
       let json = await data.json();
       setCurrentData(json.prices);
+
+      let min = json.prices[0][1];
+      console.log(min)
+      let max = json.prices[1][1];
+      console.log(max)
+      json.prices.forEach(price => {
+        //
+        if (price[1] < min) {
+          min = price[1];
+          console.log("Min", price[1]);
+        }
+        if (price[1] > max) {
+          max = price[1];
+          console.log("Max", price[1]);
+        }
+      });
+      console.log(min)
+      console.log(max)
+      setMinValue(min);
+      setMaxValue(max);
     })();
   }, []);
 
   // get the percent change between 2 numbers
   const getPercentChange = (val1, val2) => {
-    if(val1 === null || val2 === null) return 0;
+    if (val1 === null || val2 === null) return 0;
 
   }
 
@@ -119,8 +139,8 @@ export const Graph = (props) => {
     () => {
       var dps = [];
       currentData.forEach(item => {
-        let date = unixToDate(Math.floor(item[0]/1000));
-        let dataDate = `${monthsOfTheYear[date.getMonth()]} ${date.getDate()} ${date.getHours()}:${date.getMinutes() }`;
+        let date = unixToDate(Math.floor(item[0] / 1000));
+        let dataDate = `${monthsOfTheYear[date.getMonth()]} ${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
         let price = item[1].toFixed(2);
         dps.push({ x: date, y: Number(price), label: dataDate });
       });
@@ -133,10 +153,7 @@ export const Graph = (props) => {
   const options = {
     theme: "light2", // "light1", "dark1", "dark2"
     animationEnabled: true,
-    zoomEnabled: false,
-    rangeChanging: e =>{
-      AxisX viewportMinimum :
-    },
+    zoomEnabled: true,
     title: {
       text: `${cryptoName}`
     },
@@ -144,7 +161,9 @@ export const Graph = (props) => {
       title: "TimeFrame"
     },
     axisY: {
-      title: "Value(USD)"
+      title: "Value(USD)",
+      viewportMaximum: maxValue,
+      viewportMinimum: minValue,
     },
     data: [{
       type: "line",

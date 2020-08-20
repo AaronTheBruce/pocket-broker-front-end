@@ -1,8 +1,5 @@
 import React, { useState, useEffect, useCallback, useContext } from "react";
-import { Button } from "@material-ui/core";
-
 import CanvasJSReact from "../../assets/canvasjs.react";
-import { url } from "../../url-config";
 import { PocketBrokerContext } from "../../context/PocketBrokerContext";
 import fetch from "node-fetch";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -14,17 +11,14 @@ const coinGecko = "https://api.coingecko.com/api/v3";
 export const Graph = (props) => {
   // states
   const { getUser, userId, authAxios } = useContext(PocketBrokerContext);
-  const [cryptoName, setCryptoName] = useState(props.cryptoName);
+  const [cryptoName] = useState(props.cryptoName);
   const [timeFrame, setTimeFrame] = useState(props.timeFrame);
-  const [startTime, setStartTime] = useState(undefined);
-  const [endTime, setEndTime] = useState(undefined);
   const [minValue, setMinValue] = useState(null);
   const [maxValue, setMaxValue] = useState(null);
   const [currentData, setCurrentData] = useState([]);
 
   // Unix Epoch TimeFrames in seconds
   const one_hour_unix = 3600;
-  const one_day_unix = 86400;
   const one_week_unix = 604800;
   const one_month_unix = 2629743;
   const one_year_unix = 31556926;
@@ -58,7 +52,6 @@ export const Graph = (props) => {
     today.setMinutes(0)
     today.setSeconds(0)
     today.setMilliseconds(0);
-    setStartTime(today); // sets the start time for the beginning of today.
     return today;
   }
 
@@ -86,7 +79,6 @@ export const Graph = (props) => {
         return "Invalid timeframe"
     }
     let modifiedStart = unixToDate(start)
-    setEndTime(modifiedStart)
     // convert back to unix
     let year = modifiedStart.getFullYear();
     let month = modifiedStart.getMonth();
@@ -99,31 +91,24 @@ export const Graph = (props) => {
 
   useEffect(() => {
     (async function () {
-      // setCryptoName(cryptoName); // set the state to be the crypto name
       let start_time = getUnixTimeAgo(); // 1597867200
       let end_time = dateToUnix(new Date()); // 1597928927
       const api = `${coinGecko}/coins/${cryptoName}/market_chart/range?vs_currency=usd&from=${start_time}&to=${end_time}/`;
       let data = await fetch(api);
       let json = await data.json();
       setCurrentData(json.prices);
-
+      // establish local min/max values to control the graph scale
       let min = json.prices[0][1];
-      console.log(min)
       let max = json.prices[1][1];
-      console.log(max)
       json.prices.forEach(price => {
         //
         if (price[1] < min) {
           min = price[1];
-          console.log("Min", price[1]);
         }
         if (price[1] > max) {
           max = price[1];
-          console.log("Max", price[1]);
         }
       });
-      console.log(min)
-      console.log(max)
       setMinValue(min);
       setMaxValue(max);
     })();

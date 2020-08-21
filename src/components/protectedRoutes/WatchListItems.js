@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import { makeStyles } from '@material-ui/core/styles';
-import { List, ListItem, ListItemIcon, ListItemText, Divider } from "@material-ui/core";
+import { List, ListItem, ListItemIcon, ListItemText, Avatar } from "@material-ui/core";
 import ReactDOM from "react-dom"
 import fetch from "node-fetch";
 import url from "../../url-config";
+// import images from "../../assets/images"
 import { PocketBrokerContext } from "../../context/PocketBrokerContext";
 const allCryptos = "/coins/list";
 const coinGecko = "https://api.coingecko.com/api/v3";
@@ -31,41 +32,56 @@ export const WatchList = props => {
 
   useEffect(() => {
     (async function () {
-      let data = await fetch(`${coinGecko}/${allCryptos}`);
+      let data = await fetch(`${url}/cryptos`);
       let json = await data.json();
-      setWatchListItems(json);
-      console.log(json);
+      setWatchListItems(json.crypto);
+      console.log(json.crypto);
     })();
   }, []);
 
-
+  // watchListItems[0].name
   return (
     <div className={classes.root}>
       <List component="nav" aria-label="main mailbox folders">
-        <ListItem
-          button
-          selected={selectedIndex === 0}
-          onClick={(event) => handleListItemClick(event, 0)}
-        >
+        <ListItem button>
           <ListItemIcon>
-            {/* <InboxIcon /> */}
+            <Avatar alt="bitcoin-logo" src="/images/bitcoin-logo.png" />
           </ListItemIcon>
-          <ListItemText primary="Inbox" />
+          <ListItemText primary="Bitcoin" />
         </ListItem>
-        <ListItem
-          button
-          selected={selectedIndex === 1}
-          onClick={(event) => handleListItemClick(event, 1)}
-        >
+        <ListItem button>
           <ListItemIcon>
-            {/* <DraftsIcon /> */}
+            <Avatar alt="ethereum-logo" src="/images/ethereum-logo.png" />
           </ListItemIcon>
-          <ListItemText primary="Drafts" />
+          <ListItemText primary="Ethereum" />
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <Avatar alt="litecoin-logo" src="/images/litecoin-logo.jpg" />
+          </ListItemIcon>
+          <ListItemText primary="LiteCoin" />
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <Avatar alt="bitcoin-cash-logo" src="/images/bitcoin-cash-logo.png" />
+          </ListItemIcon>
+          <ListItemText primary="Bitcoin Cash" />
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <Avatar alt="ripple-logo" src="/images/ripple-logo.png" />
+          </ListItemIcon>
+          <ListItemText primary="Ripple" />
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <Avatar alt="basic-attention-token-logo" src="/images/basic-attention-token-logo.png" />
+          </ListItemIcon>
+          <ListItemText primary="Basic Attention Token" />
         </ListItem>
       </List>
-      <Divider />
     </div>
-  )
+  );
 
 }
 

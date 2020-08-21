@@ -97,11 +97,12 @@ export const Graph = (props) => {
       let data = await fetch(api);
       let json = await data.json();
       setCurrentData(json.prices);
+
       // establish local min/max values to control the graph scale
       let min = json.prices[0][1];
       let max = json.prices[1][1];
+      console.log(Math.floor(json.prices[0][0] / 1000));
       json.prices.forEach(price => {
-        //
         if (price[1] < min) {
           min = price[1];
         }

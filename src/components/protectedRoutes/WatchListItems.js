@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import { List, ListItem, ListItemIcon, ListItemText, Avatar } from "@material-ui/core";
-import ReactDOM from "react-dom"
-import fetch from "node-fetch";
-import url from "../../url-config";
+// import ReactDOM from "react-dom"
+// import fetch from "node-fetch";
+// import url from "../../url-config";
 // import images from "../../assets/images"
-import { PocketBrokerContext } from "../../context/PocketBrokerContext";
-const allCryptos = "/coins/list";
-const coinGecko = "https://api.coingecko.com/api/v3";
-const createReactClass = require('create-react-class');
+// import { PocketBrokerContext } from "../../context/PocketBrokerContext";
+// const allCryptos = "/coins/list";
+// const coinGecko = "https://api.coingecko.com/api/v3";
+// const createReactClass = require('create-react-class');
 // api.coingecko.com/api/v3/coins/${crypto}/market_chart/range?vs_currency=usd&from=${start_time}&to=${end_time}/
 
 const useStyles = makeStyles((theme) => ({
@@ -22,38 +22,30 @@ const useStyles = makeStyles((theme) => ({
 export const WatchList = props => {
   const classes = useStyles();
 
-  const { getUser, userId, authAxios } = useContext(PocketBrokerContext);
-  const [watchListItems, setWatchListItems] = useState(undefined);
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
-  let cryptoName = props.cryptoName;
-
-  console.log("onLoad:", cryptoName)
+  // const { getUser, userId, authAxios } = useContext(PocketBrokerContext);
+  // const [watchListItems, setWatchListItems] = useState(undefined);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
-    console.log("Event Target", event.currentTarget.id)
     // get element by class name "Mui-selected" and retrieve id
     props.cryptoHandler(event.currentTarget.id); // doesn't work ideally
-    console.log('Prop state', props.cryptoName)
   };
 
   // const getCryptoByName = async (crypto) => {
   //   let data = await fetch(`${url}/cryptos/${crypto}`);
   //   let json = await data.json();
   //   cryptoName = crypto
-  //   console.log("onClick", cryptoName)
   //   props.cryptoName = cryptoName
-  //   console.log("The passed in props:", props.cryptoName)
   // }
 
-  useEffect(() => {
-    (async function () {
-      let data = await fetch(`${url}/cryptos`);
-      let json = await data.json();
-      setWatchListItems(json.crypto);
-      console.log(json.crypto);
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async function () {
+  //     let data = await fetch(`${url}/cryptos`);
+  //     let json = await data.json();
+  //     setWatchListItems(json.crypto);
+  //   })();
+  // }, []);
 
   // watchListItems[0].name
   return (
@@ -142,7 +134,6 @@ export const WatchList = props => {
 //     name: name,
 //     symbol: symbol,
 //   }).then(result => {
-//     console.log(result)
 //   })
 // }
 

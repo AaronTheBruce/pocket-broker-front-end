@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback, useContext } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import CanvasJSReact from "../../assets/canvasjs.react";
-import { PocketBrokerContext } from "../../context/PocketBrokerContext";
+// import { PocketBrokerContext } from "../../context/PocketBrokerContext";
 import fetch from "node-fetch";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
@@ -10,16 +10,11 @@ const coinGecko = "https://api.coingecko.com/api/v3";
 
 export const Graph = (props) => {
   // states
-  const { getUser, userId, authAxios } = useContext(PocketBrokerContext);
+  // const { getUser, userId, authAxios } = useContext(PocketBrokerContext);
   // const [cryptoName, setCryptoName] = useState(props.cryptoName);
-  const [timeFrame, setTimeFrame] = useState(props.timeFrame);
   const [minValue, setMinValue] = useState(null);
   const [maxValue, setMaxValue] = useState(null);
   const [currentData, setCurrentData] = useState([]);
-
-  console.log("Graph:", props.cryptoName)
-  console.log("Graph(props):", props.cryptoName)
-
 
   // Unix Epoch TimeFrames in seconds
   const one_hour_unix = 3600;
@@ -62,11 +57,10 @@ export const Graph = (props) => {
 
   // returns in local time
   const getUnixTimeAgo = () => {
-    setTimeFrame(timeFrame.toLowerCase().trim());
     let end = new Date();
     end = dateToUnix(end);
     let start;
-    switch (timeFrame) {
+    switch (props.timeFrame.toLowerCase().trim()) {
       case "day":
         start = dateToUnix(getDayStartDateTime());
         break;
@@ -117,13 +111,13 @@ export const Graph = (props) => {
       setMinValue(min);
       setMaxValue(max);
     })();
-  }, [props.cryptoName]);
+  }, [props.cryptoName, props.timeFrame]);
 
   // get the percent change between 2 numbers
-  const getPercentChange = (val1, val2) => {
-    if (val1 === null || val2 === null) return 0;
+  // const getPercentChange = (val1, val2) => {
+  //   if (val1 === null || val2 === null) return 0;
 
-  }
+  // }
 
   const memoizeCryptoData = useCallback(
     () => {

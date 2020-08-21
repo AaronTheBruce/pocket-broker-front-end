@@ -32,7 +32,6 @@ export function SignUp() {
       email,
       password,
     }).then(res => {
-      console.log(res)
       if (res.status === 200) {
         const { access_token, user_id } = res.data;
         login(access_token);

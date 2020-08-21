@@ -24,11 +24,27 @@ export const WatchList = props => {
 
   const { getUser, userId, authAxios } = useContext(PocketBrokerContext);
   const [watchListItems, setWatchListItems] = useState(undefined);
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
+  let cryptoName = props.cryptoName;
+
+  console.log("onLoad:", cryptoName)
 
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
+    console.log("Event Target", event.currentTarget.id)
+    // get element by class name "Mui-selected" and retrieve id
+    props.cryptoHandler(event.currentTarget.id); // doesn't work ideally
+    console.log('Prop state', props.cryptoName)
   };
+
+  // const getCryptoByName = async (crypto) => {
+  //   let data = await fetch(`${url}/cryptos/${crypto}`);
+  //   let json = await data.json();
+  //   cryptoName = crypto
+  //   console.log("onClick", cryptoName)
+  //   props.cryptoName = cryptoName
+  //   console.log("The passed in props:", props.cryptoName)
+  // }
 
   useEffect(() => {
     (async function () {
@@ -42,38 +58,74 @@ export const WatchList = props => {
   // watchListItems[0].name
   return (
     <div className={classes.root}>
-      <List component="nav" aria-label="main mailbox folders">
-        <ListItem button>
+      <List component="nav" aria-label="crypto watch list">
+        <ListItem
+        button
+        id="bitcoin"
+        selected={selectedIndex === 0}
+        onClick={(event) => handleListItemClick(event, 0) }
+        // onClick={props.action}
+        >
           <ListItemIcon>
             <Avatar alt="bitcoin-logo" src="/images/bitcoin-logo.png" />
           </ListItemIcon>
           <ListItemText primary="Bitcoin" />
         </ListItem>
-        <ListItem button>
+        <ListItem
+        button
+        id="ethereum"
+        selected={selectedIndex === 1}
+        onClick={(event) => handleListItemClick(event, 1)}
+        // onClick={props.action}
+        >
           <ListItemIcon>
             <Avatar alt="ethereum-logo" src="/images/ethereum-logo.png" />
           </ListItemIcon>
           <ListItemText primary="Ethereum" />
         </ListItem>
-        <ListItem button>
+        <ListItem
+        button
+        id="litecoin"
+        selected={selectedIndex === 2}
+        onClick={(event) => handleListItemClick(event, 2)}
+        // onClick={props.action}
+        >
           <ListItemIcon>
             <Avatar alt="litecoin-logo" src="/images/litecoin-logo.jpg" />
           </ListItemIcon>
           <ListItemText primary="LiteCoin" />
         </ListItem>
-        <ListItem button>
+        <ListItem
+        button
+        id="bitcoin-cash"
+        selected={selectedIndex === 3}
+        onClick={(event) => handleListItemClick(event, 3)}
+        // onClick={props.action}
+        >
           <ListItemIcon>
             <Avatar alt="bitcoin-cash-logo" src="/images/bitcoin-cash-logo.png" />
           </ListItemIcon>
           <ListItemText primary="Bitcoin Cash" />
         </ListItem>
-        <ListItem button>
+        <ListItem
+        button
+        id="ripple"
+        selected={selectedIndex === 4}
+        onClick={(event) => handleListItemClick(event, 4)}
+        // onClick={props.action}
+        >
           <ListItemIcon>
             <Avatar alt="ripple-logo" src="/images/ripple-logo.png" />
           </ListItemIcon>
           <ListItemText primary="Ripple" />
         </ListItem>
-        <ListItem button>
+        <ListItem
+        button
+        id="basic-attention-token"
+        selected={selectedIndex === 5}
+        onClick={(event) => handleListItemClick(event, 6)}
+        // onClick={props.action}
+        >
           <ListItemIcon>
             <Avatar alt="basic-attention-token-logo" src="/images/basic-attention-token-logo.png" />
           </ListItemIcon>

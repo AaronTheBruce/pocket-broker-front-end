@@ -11,11 +11,15 @@ const coinGecko = "https://api.coingecko.com/api/v3";
 export const Graph = (props) => {
   // states
   const { getUser, userId, authAxios } = useContext(PocketBrokerContext);
-  const [cryptoName] = useState(props.cryptoName);
+  // const [cryptoName, setCryptoName] = useState(props.cryptoName);
   const [timeFrame, setTimeFrame] = useState(props.timeFrame);
   const [minValue, setMinValue] = useState(null);
   const [maxValue, setMaxValue] = useState(null);
   const [currentData, setCurrentData] = useState([]);
+
+  console.log("Graph:", props.cryptoName)
+  console.log("Graph(props):", props.cryptoName)
+
 
   // Unix Epoch TimeFrames in seconds
   const one_hour_unix = 3600;
@@ -93,7 +97,7 @@ export const Graph = (props) => {
     (async function () {
       let start_time = getUnixTimeAgo(); // 1597867200
       let end_time = dateToUnix(new Date()); // 1597928927
-      const api = `${coinGecko}/coins/${cryptoName}/market_chart/range?vs_currency=usd&from=${start_time}&to=${end_time}/`;
+      const api = `${coinGecko}/coins/${props.cryptoName}/market_chart/range?vs_currency=usd&from=${start_time}&to=${end_time}/`;
       let data = await fetch(api);
       let json = await data.json();
       setCurrentData(json.prices);
@@ -113,7 +117,7 @@ export const Graph = (props) => {
       setMinValue(min);
       setMaxValue(max);
     })();
-  }, []);
+  }, [props.cryptoName]);
 
   // get the percent change between 2 numbers
   const getPercentChange = (val1, val2) => {
@@ -141,7 +145,7 @@ export const Graph = (props) => {
     animationEnabled: true,
     zoomEnabled: true,
     title: {
-      text: `${cryptoName}`
+      text: `${props.cryptoName}`
     },
     axisX: {
       title: "TimeFrame"

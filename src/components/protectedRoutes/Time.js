@@ -16,8 +16,7 @@ export const TimeSelectors = props => {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    // get element by class name "Mui-selected" and retrieve id
-    props.timeHandler(event.currentTarget.id); // doesn't work ideally
+    props.timeHandler(event.currentTarget.id);
   };
   return (
     <Typography component={'span'} variant={'body2'} className={classes.root}>

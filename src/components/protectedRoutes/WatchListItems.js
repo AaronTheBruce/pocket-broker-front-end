@@ -1,15 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import { List, ListItem, ListItemIcon, ListItemText, Avatar } from "@material-ui/core";
-// import ReactDOM from "react-dom"
-// import fetch from "node-fetch";
-// import url from "../../url-config";
-// import images from "../../assets/images"
-// import { PocketBrokerContext } from "../../context/PocketBrokerContext";
-// const allCryptos = "/coins/list";
-// const coinGecko = "https://api.coingecko.com/api/v3";
-// const createReactClass = require('create-react-class');
-// api.coingecko.com/api/v3/coins/${crypto}/market_chart/range?vs_currency=usd&from=${start_time}&to=${end_time}/
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,33 +12,13 @@ const useStyles = makeStyles((theme) => ({
 
 export const WatchList = props => {
   const classes = useStyles();
-
-  // const { getUser, userId, authAxios } = useContext(PocketBrokerContext);
-  // const [watchListItems, setWatchListItems] = useState(undefined);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
-    // get element by class name "Mui-selected" and retrieve id
-    props.cryptoHandler(event.currentTarget.id); // doesn't work ideally
+    props.cryptoHandler(event.currentTarget.id);
   };
 
-  // const getCryptoByName = async (crypto) => {
-  //   let data = await fetch(`${url}/cryptos/${crypto}`);
-  //   let json = await data.json();
-  //   cryptoName = crypto
-  //   props.cryptoName = cryptoName
-  // }
-
-  // useEffect(() => {
-  //   (async function () {
-  //     let data = await fetch(`${url}/cryptos`);
-  //     let json = await data.json();
-  //     setWatchListItems(json.crypto);
-  //   })();
-  // }, []);
-
-  // watchListItems[0].name
   return (
     <div className={classes.root}>
       <List component="nav" aria-label="crypto watch list">
@@ -126,22 +97,4 @@ export const WatchList = props => {
       </List>
     </div>
   );
-
 }
-
-// const getSupportedCryptos = async () => {
-//   await authAxios.get(`${url}/cryptos/`, {
-//     name: name,
-//     symbol: symbol,
-//   }).then(result => {
-//   })
-// }
-
-// let watchItems = createReactClass({
-//   render: function () {
-//     let itemList = watchListItems.map(function(coin) {
-//       return <li>{coin['id']}</li>
-//     })
-//     return <ul>{itemList}</ul>
-//   }
-// })

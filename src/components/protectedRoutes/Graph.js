@@ -87,6 +87,14 @@ export const Graph = (props) => {
     return Date.UTC(year, month, day, hours, minutes, seconds) / 1000
   }
 
+  // get the percent change between 2 numbers
+  const getPercentChange = (val1, val2) => {
+    if (val1 === null || val2 === null) return 0;
+    let increase = val2 - val1;
+    let percentChange = (increase / val1) * 100;
+    return Number((percentChange).toFixed(3));
+  }
+
   useEffect(() => {
     (async function () {
       let start_time = getUnixTimeAgo(); // 1597867200
@@ -99,8 +107,14 @@ export const Graph = (props) => {
       // establish local min/max values to control the graph scale
       let min = json.prices[0][1];
       let max = json.prices[1][1];
+      let first = json.prices[0][1];
+      let last = json.prices[json.prices.length-1][1];
+      // total for getting the average price
+      let total = 0;
       // console.log(Math.floor(json.prices[0][0] / 1000));
       json.prices.forEach(price => {
+        // get the sum of all prices
+        total += price[1];
         if (price[1] < min) {
           min = price[1];
         }
@@ -108,16 +122,16 @@ export const Graph = (props) => {
           max = price[1];
         }
       });
+      // find the percent change from the first and last numbers
+      let percentChange = getPercentChange(first, last)
+      props.percentChangeHandler(percentChange);
+      props.averagePriceHandler(Number((total / json.prices.length).toFixed(2)));
       setMinValue(min);
+      props.minPriceHandler(Number(min.toFixed(2)));
       setMaxValue(max);
+      props.maxPriceHandler(Number(max.toFixed(2)));
     })();
   }, [props.cryptoName, props.timeFrame]);
-
-  // get the percent change between 2 numbers
-  // const getPercentChange = (val1, val2) => {
-  //   if (val1 === null || val2 === null) return 0;
-
-  // }
 
   const memoizeCryptoData = useCallback(
     () => {

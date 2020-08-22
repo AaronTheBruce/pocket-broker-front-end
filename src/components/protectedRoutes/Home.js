@@ -3,7 +3,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Container, CssBaseline, Paper } from "@material-ui/core";
 import { Graph } from "./Graph.js";
 import { WatchList } from "./WatchListItems"
-import {TimeSelectors} from "./Time";
+import { TimeSelectors } from "./Time";
+import NavBar from "./NavBar";
+// import { Logout } from "../auth/Logout"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,12 +36,20 @@ export const Home = () => {
       <CssBaseline />
       <Container fixed component="div" style={{ backgroundColor: '#cfe8fc', height: '100vh' }}>
         <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Paper className={classes.paper}>
-              <h1>Dia Duit! Failte chun Pocket Broker!</h1>
-            </Paper>
+          <Grid container >
+            <Grid item xs={12}>
+              <Paper className={classes.paper}>
+                <NavBar />
+              </Paper>
+            </Grid>
+            {/* <Grid item xs={1}>
+              <Logout />
+            </Grid> */}
+            {/* <Grid item xs={1}>
+              <Logout />
+            </Grid> */}
           </Grid>
-          <Grid item xs={12} sm={8}>
+          <Grid item xs={12} sm={9}>
             <Paper
               className={classes.paper}
               style={{ height: '500px', }}>
@@ -50,14 +60,14 @@ export const Home = () => {
           <Grid item xs={6} sm={3}>
             <Paper className={classes.paper} style={{ height: '500px' }}><WatchList cryptoHandler={cryptoHandler} cryptoName={cryptoName} /></Paper>
           </Grid>
-          <Grid item xs={6} sm={1}>
-            {/* <IconButton className="fa fa-plus-circle">Notif</IconButton> */}
-          </Grid>
-          <Grid item xs={6} sm={4}>
+          {/* <Grid item xs={6} sm={1}>
+            <IconButton className="fa fa-plus-circle">Notif</IconButton>
+          </Grid> */}
+          {/* <Grid item xs={6} sm={4}>
             <Paper className={classes.paper}>Event Config</Paper>
-          </Grid>
-          <Grid item xs={6} sm={4}>
-            <Paper className={classes.paper}>Stats</Paper>
+          </Grid> */}
+          <Grid item xs={12} sm={9}>
+            <Paper className={classes.paper}  style={{ height: '250px' }}>Stats</Paper>
           </Grid>
           {/* <Grid item xs={6} sm={3}>
             <Paper className={classes.paper}>xs=6 sm=3</Paper>

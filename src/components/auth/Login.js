@@ -6,6 +6,7 @@ import Axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, TextField, Button, Typography } from "@material-ui/core";
 import url from "../../url-config";
+import { DemoUser } from "./DemoUser";
 const useStyles = makeStyles((theme) => ({
   formContainer: {
     backgroundColor: theme.palette.secondary.main,
@@ -60,6 +61,7 @@ export const Login = () => {
         <TextField label="Password" margin="normal" type="password" autoComplete="current-password" onChange={e => setPassword(e.target.value)}></TextField>
         <Grid container item direction="column" justify="center" alignContent="center">
           <Button color="primary" variant="contained" width="100%" onClick={loginUser}>Login</Button>
+          <DemoUser />
           {/* DemoUser Button */}
         </Grid>
         <Typography>

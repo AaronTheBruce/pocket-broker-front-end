@@ -177,8 +177,8 @@ export const Graph = (props) => {
     },
     axisY: {
       title: "Value(USD)",
-      viewportMaximum: maxValue,
-      viewportMinimum: minValue,
+      viewportMaximum: maxValue+0.01,
+      viewportMinimum: minValue-0.01,
     },
     data: [{
       type: "line",

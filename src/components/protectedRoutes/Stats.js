@@ -14,14 +14,14 @@ const useStyles = makeStyles({
   },
 });
 
-function createData(name, average, min, max, percent) {
-  return { name, average, min, max, percent };
+function createData(name, average, min, max, priceChange, percent) {
+  return { name, average, min, max, priceChange, percent };
 }
 
 export const Stats = props => {
 
   const rows = [
-    createData('Price Stats', props.averagePrice, props.minPrice, props.maxPrice, props.percentChange),
+    createData('Price Stats', props.averagePrice, props.minPrice, props.maxPrice, props.priceChange, props.percentChange),
   ];
   const classes = useStyles();
 
@@ -35,6 +35,7 @@ export const Stats = props => {
             <TableCell align="right">Average Price</TableCell>
             <TableCell align="right">Min Price</TableCell>
             <TableCell align="right">Max Price</TableCell>
+            <TableCell align="right">Price Change</TableCell>
             <TableCell align="right">Percent Change</TableCell>
           </TableRow>
         </TableHead>
@@ -47,6 +48,7 @@ export const Stats = props => {
               <TableCell align="right">${row.average}</TableCell>
               <TableCell align="right">${row.min}</TableCell>
               <TableCell align="right">${row.max}</TableCell>
+              <TableCell align="right">${row.priceChange}</TableCell>
               <TableCell align="right">{row.percent}%</TableCell>
             </TableRow>
           ))}

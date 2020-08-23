@@ -89,6 +89,10 @@ export const Graph = (props) => {
     return Number((percentChange).toFixed(3));
   }
 
+  const getPriceChange = (val1, val2) => {
+    return Number((val1 - val2).toFixed(2));
+  }
+
   useEffect(() => {
     (async function () {
       let start_time = getUnixTimeAgo(); // 1597867200
@@ -118,6 +122,8 @@ export const Graph = (props) => {
       });
       // find the percent change from the first and last numbers
       let percentChange = getPercentChange(first, last)
+      let priceChange = getPriceChange(first, last);
+      props.priceChangeHandler(priceChange);
       props.percentChangeHandler(percentChange);
       props.averagePriceHandler(Number((total / json.prices.length).toFixed(2)));
       setMinValue(min);

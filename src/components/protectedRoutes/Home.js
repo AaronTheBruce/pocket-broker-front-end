@@ -26,6 +26,7 @@ export const Home = () => {
   const [averagePrice, setAveragePrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(0);
   const [minPrice, setMinPrice] = useState(0);
+  const [priceChange, setPriceChange] = useState(0);
   const [percentChange, setPercentChange] = useState(0)
 
 
@@ -46,6 +47,11 @@ export const Home = () => {
   const minPriceHandler = (min) => {
     setMinPrice(min);
   }
+
+  const priceChangeHandler = (priceChange) => {
+    setPriceChange(priceChange);
+  }
+
   const percentChangeHandler = (percent) => {
     setPercentChange(percent);
   }
@@ -72,6 +78,7 @@ export const Home = () => {
                 averagePriceHandler={averagePriceHandler}
                 maxPriceHandler={maxPriceHandler}
                 minPriceHandler={minPriceHandler}
+                priceChangeHandler={priceChangeHandler}
                 percentChangeHandler={percentChangeHandler}
               />
               <TimeSelectors
@@ -105,6 +112,7 @@ export const Home = () => {
                 averagePrice={averagePrice}
                 minPrice={minPrice}
                 maxPrice={maxPrice}
+                priceChange={priceChange}
                 percentChange={percentChange}
               />
             </Paper>

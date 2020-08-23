@@ -1,17 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import CanvasJSReact from "../../assets/canvasjs.react";
-// import { PocketBrokerContext } from "../../context/PocketBrokerContext";
 import fetch from "node-fetch";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const coinGecko = "https://api.coingecko.com/api/v3";
-// const fetch = require("node-fetch");
-// api.coingecko.com/api/v3/coins/${crypto}/market_chart/range?vs_currency=usd&from=${start_time}&to=${end_time}/
 
 export const Graph = (props) => {
-  // states
-  // const { getUser, userId, authAxios } = useContext(PocketBrokerContext);
-  // const [cryptoName, setCryptoName] = useState(props.cryptoName);
   const [minValue, setMinValue] = useState(null);
   const [maxValue, setMaxValue] = useState(null);
   const [currentData, setCurrentData] = useState([]);
@@ -149,7 +143,7 @@ export const Graph = (props) => {
   );
 
   const options = {
-    theme: "light2", // "light1", "dark1", "dark2"
+    theme: "light1", // "light1", "dark1", "dark2"
     animationEnabled: true,
     zoomEnabled: true,
     title: {

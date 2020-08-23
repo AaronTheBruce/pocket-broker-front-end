@@ -4,20 +4,19 @@ import { PocketBrokerContext } from "../../context/PocketBrokerContext";
 // import the demo user
 import Axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, TextField, Button, Typography } from "@material-ui/core";
+import { Grid, TextField, Button, Typography, Box } from "@material-ui/core";
 import url from "../../url-config";
 import { DemoUser } from "./DemoUser";
+import '../../index.css';
 const useStyles = makeStyles((theme) => ({
   formContainer: {
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: "#f0eace",
   },
 }));
 
 export const Login = () => {
   const classes = useStyles();
-
   const { login, authToken, setUserId, getUser } = useContext(PocketBrokerContext);
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -26,8 +25,8 @@ export const Login = () => {
       email,
       password,
     }).then(res => {
-      if(res.status === 200) {
-        const {access_token, user_id} = res.data;
+      if (res.status === 200) {
+        const { access_token, user_id } = res.data;
         login(access_token);
         setUserId(user_id);
         window.localStorage.setItem("user_id", user_id);
@@ -38,36 +37,41 @@ export const Login = () => {
     });
   };
 
-  if(authToken) {
+  if (authToken) {
     return <Redirect to="/" />;
   }
   return (
-    <>
-      <Grid container>
-        <Grid item>
-          {/* image ? */}
-        </Grid>
-      </Grid>
+    <Box borderRadius="25%" style={{ margin: "10% 35%", justifyContent: "center" }}>
       <Grid
         className={classes.formContainer}
         container
         component="form"
-        item
         alignItems="center"
-        justify="space-between"
+        alignContent="center"
+        justify="center"
         direction="column"
       >
-        <TextField label="email" margin="normal" autoComplete='email address' onChange={e => setEmail(e.target.value)}></TextField>
-        <TextField label="Password" margin="normal" type="password" autoComplete="current-password" onChange={e => setPassword(e.target.value)}></TextField>
+        <TextField
+          label="email"
+          margin="normal"
+          autoComplete='email address'
+          onChange={e => setEmail(e.target.value)}>
+        </TextField>
+        <TextField
+          label="Password"
+          margin="normal"
+          type="password"
+          autoComplete="current-password"
+          onChange={e => setPassword(e.target.value)}>
+        </TextField>
         <Grid container item direction="column" justify="center" alignContent="center">
-          <Button color="primary" variant="contained" width="100%" onClick={loginUser}>Login</Button>
+          <Button color="secondary" variant="contained" width="100%" onClick={loginUser}>Login</Button>
           <DemoUser />
-          {/* DemoUser Button */}
         </Grid>
         <Typography>
-          Are ye registered?<a href="/sign-up">Sign Up Here!</a>
+          <a href="/sign-up">Sign Up Here!</a>
         </Typography>
       </Grid>
-    </>
+    </Box>
   )
 }

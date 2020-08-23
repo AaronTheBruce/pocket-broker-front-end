@@ -53,7 +53,7 @@ export const Home = () => {
   return (
     <React.Fragment >
       <CssBaseline />
-      <Container fixed component="div" style={{ backgroundColor: '#669fe0', height: '100vh' }}>
+      <Container fixed component="div" className={classes.root} style={{ height: '100vh' }}>
         <Grid container spacing={3}>
           <Grid container >
             <Grid item xs={12}>

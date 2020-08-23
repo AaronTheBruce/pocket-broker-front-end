@@ -38,9 +38,8 @@ export const DemoUser = () => {
     <div>
       <div style={{ height: 20 }} />
       <Button
-        color="primary"
+        color="secondary"
         variant="contained"
-        width="100%"
         onClick={postLogin}
       >
         <PermIdentity />

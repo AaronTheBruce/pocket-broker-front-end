@@ -27,7 +27,6 @@ export const WatchList = props => {
         id="bitcoin"
         selected={selectedIndex === 0}
         onClick={(event) => handleListItemClick(event, 0) }
-        // onClick={props.action}
         >
           <ListItemIcon>
             <Avatar alt="bitcoin-logo" src="/images/bitcoin-logo.png" />
@@ -39,7 +38,6 @@ export const WatchList = props => {
         id="ethereum"
         selected={selectedIndex === 1}
         onClick={(event) => handleListItemClick(event, 1)}
-        // onClick={props.action}
         >
           <ListItemIcon>
             <Avatar alt="ethereum-logo" src="/images/ethereum-logo.png" />
@@ -51,7 +49,6 @@ export const WatchList = props => {
         id="litecoin"
         selected={selectedIndex === 2}
         onClick={(event) => handleListItemClick(event, 2)}
-        // onClick={props.action}
         >
           <ListItemIcon>
             <Avatar alt="litecoin-logo" src="/images/litecoin-logo.jpg" />
@@ -63,7 +60,6 @@ export const WatchList = props => {
         id="bitcoin-cash"
         selected={selectedIndex === 3}
         onClick={(event) => handleListItemClick(event, 3)}
-        // onClick={props.action}
         >
           <ListItemIcon>
             <Avatar alt="bitcoin-cash-logo" src="/images/bitcoin-cash-logo.png" />
@@ -75,7 +71,6 @@ export const WatchList = props => {
         id="ripple"
         selected={selectedIndex === 4}
         onClick={(event) => handleListItemClick(event, 4)}
-        // onClick={props.action}
         >
           <ListItemIcon>
             <Avatar alt="ripple-logo" src="/images/ripple-logo.png" />
@@ -87,7 +82,6 @@ export const WatchList = props => {
         id="basic-attention-token"
         selected={selectedIndex === 5}
         onClick={(event) => handleListItemClick(event, 6)}
-        // onClick={props.action}
         >
           <ListItemIcon>
             <Avatar alt="basic-attention-token-logo" src="/images/basic-attention-token-logo.png" />

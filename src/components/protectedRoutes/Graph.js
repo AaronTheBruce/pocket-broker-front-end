@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import CanvasJSReact from "../../assets/canvasjs.react";
 import fetch from "node-fetch";
+import CanvasJS from "../../assets/canvasjs.min.js"
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const coinGecko = "https://api.coingecko.com/api/v3";
@@ -15,7 +16,7 @@ export const Graph = (props) => {
   const one_week_unix = 604800;
   const one_month_unix = 2629743;
   const one_year_unix = 31556926;
-  // const daysOfTheWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const daysOfTheWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
   const monthsOfTheYear = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
   // Returns date from unix in seconds
@@ -47,7 +48,6 @@ export const Graph = (props) => {
     today.setMilliseconds(0);
     return today;
   }
-
 
   // returns in local time
   const getUnixTimeAgo = () => {
@@ -132,7 +132,8 @@ export const Graph = (props) => {
       var dps = [];
       currentData.forEach(item => {
         let date = unixToDate(Math.floor(item[0] / 1000));
-        let dataDate = `${monthsOfTheYear[date.getMonth()]} ${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
+        console.log("Date:", date)
+        let dataDate = `${daysOfTheWeek[date.getDay()]}, ${date.getDate()} ${monthsOfTheYear[date.getMonth()]} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} (Eastern Time)`;
         let price = item[1].toFixed(2);
         dps.push({ x: date, y: Number(price), label: dataDate });
       });
@@ -150,7 +151,23 @@ export const Graph = (props) => {
       text: `${props.cryptoName}`
     },
     axisX: {
-      title: "TimeFrame"
+      title: "TimeFrame",
+      labelAngle: -20,
+      labelFormatter: function (e) {
+        if(props.timeFrame.toLowerCase().trim() === "year"){
+          return CanvasJS.formatDate(e.value, "MMM YYYY");
+        }
+        if(props.timeFrame.toLowerCase().trim() === "month"){
+          return CanvasJS.formatDate(e.value, "MMM DD YYYY");
+        }
+        if(props.timeFrame.toLowerCase().trim() === "week"){
+          return CanvasJS.formatDate(e.value, "MMM DD DDD");
+        }
+        if(props.timeFrame.toLowerCase().trim() === "day"){
+          return CanvasJS.formatDate(e.value, "hh:mm TT");
+        }
+
+      }
     },
     axisY: {
       title: "Value(USD)",
@@ -159,7 +176,6 @@ export const Graph = (props) => {
     },
     data: [{
       type: "line",
-      // dataPoints: memoizeGenerateRandomData(500)
       dataPoints: memoizeCryptoData()
     }]
   }

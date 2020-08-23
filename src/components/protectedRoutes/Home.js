@@ -100,7 +100,6 @@ export const Home = () => {
           <Grid item xs={12} sm={9}>
             <Paper
               className={classes.paper}
-
             >
               <Stats
                 averagePrice={averagePrice}

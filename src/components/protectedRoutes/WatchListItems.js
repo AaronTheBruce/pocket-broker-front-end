@@ -81,12 +81,34 @@ export const WatchList = props => {
         button
         id="basic-attention-token"
         selected={selectedIndex === 5}
-        onClick={(event) => handleListItemClick(event, 6)}
+        onClick={(event) => handleListItemClick(event, 5)}
         >
           <ListItemIcon>
             <Avatar alt="basic-attention-token-logo" src="/images/basic-attention-token-logo.png" />
           </ListItemIcon>
           <ListItemText primary="Basic Attention Token" />
+        </ListItem>
+        <ListItem
+        button
+        id="dogecoin"
+        selected={selectedIndex === 6}
+        onClick={(event) => handleListItemClick(event, 6)}
+        >
+          <ListItemIcon>
+            <Avatar alt="dogecoin-logo" src="/images/dogecoin-logo.jpg" />
+          </ListItemIcon>
+          <ListItemText primary="Dogecoin" />
+        </ListItem>
+        <ListItem
+        button
+        id="ethereum-classic"
+        selected={selectedIndex === 7}
+        onClick={(event) => handleListItemClick(event, 7)}
+        >
+          <ListItemIcon>
+            <Avatar alt="ethereum-classic-logo" src="/images/ethereum-classic-logo.jpg" />
+          </ListItemIcon>
+          <ListItemText primary="Ethereum Classic" />
         </ListItem>
       </List>
     </div>

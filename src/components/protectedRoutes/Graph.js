@@ -90,7 +90,7 @@ export const Graph = (props) => {
   }
 
   const getPriceChange = (val1, val2) => {
-    return Number((val1 - val2).toFixed(2));
+    return Number((val2 - val1).toFixed(2));
   }
 
   useEffect(() => {

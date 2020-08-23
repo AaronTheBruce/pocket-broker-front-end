@@ -29,7 +29,7 @@ export const Home = () => {
   const [priceChange, setPriceChange] = useState(0);
   const [percentChange, setPercentChange] = useState(0)
 
-
+  
   const cryptoHandler = (crypto) => {
     setCryptoName(crypto);
   }

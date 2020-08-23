@@ -23,7 +23,7 @@ export const NavBar = () => {
     <div className={classes.root}>
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
-          Failte Chun Pocket Broker
+          Pocket Broker
           </Typography>
           <Logout />
       </Toolbar>

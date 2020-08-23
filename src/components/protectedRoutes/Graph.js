@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import CanvasJSReact from "../../assets/canvasjs.react";
 import fetch from "node-fetch";
-import CanvasJS from "../../assets/canvasjs.min.js"
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const coinGecko = "https://api.coingecko.com/api/v3";
@@ -161,16 +160,16 @@ export const Graph = (props) => {
       labelAngle: -20,
       labelFormatter: function (e) {
         if(props.timeFrame.toLowerCase().trim() === "year"){
-          return CanvasJS.formatDate(e.value, "MMM YYYY");
+          return CanvasJSReact.CanvasJS.formatDate(e.value, "MMM YYYY");
         }
         if(props.timeFrame.toLowerCase().trim() === "month"){
-          return CanvasJS.formatDate(e.value, "MMM DD YYYY");
+          return CanvasJSReact.CanvasJS.formatDate(e.value, "MMM DD YYYY");
         }
         if(props.timeFrame.toLowerCase().trim() === "week"){
-          return CanvasJS.formatDate(e.value, "MMM DD DDD");
+          return CanvasJSReact.CanvasJS.formatDate(e.value, "MMM DD DDD");
         }
         if(props.timeFrame.toLowerCase().trim() === "day"){
-          return CanvasJS.formatDate(e.value, "hh:mm TT");
+          return CanvasJSReact.CanvasJS.formatDate(e.value, "hh:mm TT");
         }
 
       }

@@ -9,6 +9,7 @@ export const Graph = (props) => {
   const [minValue, setMinValue] = useState(null);
   const [maxValue, setMaxValue] = useState(null);
   const [currentData, setCurrentData] = useState([]);
+  const [timeUntilNextDataRelease, setTimeUntilNextDataRelease] = useState(null);
 
   // Unix Epoch TimeFrames in seconds
   const one_hour_unix = 3600;
@@ -92,8 +93,10 @@ export const Graph = (props) => {
     return Number((val2 - val1).toFixed(2));
   }
 
-  useEffect(() => {
+  const getData = async () => {
     (async function () {
+      console.log("Get Data Ran")
+      // get the startTime and endTime to use in the api call, fetch, then jsonify the data and set prices in current data
       let start_time = getUnixTimeAgo(); // 1597867200
       let end_time = dateToUnix(new Date()); // 1597928927
       const api = `${coinGecko}/coins/${props.cryptoName}/market_chart/range?vs_currency=usd&from=${start_time}&to=${end_time}/`;
@@ -104,11 +107,11 @@ export const Graph = (props) => {
       // establish local min/max values to control the graph scale
       let min = json.prices[0][1];
       let max = json.prices[1][1];
+      // get the first and last prices to see percent change
       let first = json.prices[0][1];
-      let last = json.prices[json.prices.length-1][1];
+      let lastPrice = json.prices[json.prices.length-1][1];
       // total for getting the average price
       let total = 0;
-      // console.log(Math.floor(json.prices[0][0] / 1000));
       json.prices.forEach(price => {
         // get the sum of all prices
         total += price[1];
@@ -120,29 +123,39 @@ export const Graph = (props) => {
         }
       });
       // find the percent change from the first and last numbers
-      let percentChange = getPercentChange(first, last)
-      let priceChange = getPriceChange(first, last);
+      let percentChange = getPercentChange(first, lastPrice)
+      let priceChange = getPriceChange(first, lastPrice);
+      // setTimeUntilNextDataRelease
+      setMinValue(min);
+      setMaxValue(max);
       props.priceChangeHandler(priceChange);
       props.percentChangeHandler(percentChange);
       props.averagePriceHandler(Number((total / json.prices.length).toFixed(2)));
-      setMinValue(min);
       props.minPriceHandler(Number(min.toFixed(2)));
-      setMaxValue(max);
       props.maxPriceHandler(Number(max.toFixed(2)));
     })();
+  }
+
+  useEffect(() => {
+    getData();
+    setInterval(() => {
+      console.log("Time Called", new Date());
+      getData();
+    }, 5000); // Calls every 5 seconds coinGecko allows up to 10 calls per second. Keep in mind multiple use sessions.
   }, [props.cryptoName, props.timeFrame]);
 
   const memoizeCryptoData = useCallback(
     () => {
       var dps = [];
       currentData.forEach(item => {
+        // convert unix date to seconds for ease of conversion to UTC
         let date = unixToDate(Math.floor(item[0] / 1000));
-        console.log("Date:", date)
+        // create tooltip string
         let dataDate = `${daysOfTheWeek[date.getDay()]}, ${date.getDate()} ${monthsOfTheYear[date.getMonth()]} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} (Eastern Time)`;
+        // Grab the price for the 2 sub-item-Item around round to 2 decimal places
         let price = item[1].toFixed(2);
         dps.push({ x: date, y: Number(price), label: dataDate });
       });
-
       return dps;
     },
     [currentData],

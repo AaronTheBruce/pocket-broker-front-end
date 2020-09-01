@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Container, CssBaseline, Paper } from "@material-ui/core";
+import { Grid, Container, CssBaseline, Paper, Typography } from "@material-ui/core";
 import { Graph } from "./Graph.js";
 import { WatchList } from "./WatchListItems"
 import { TimeSelectors } from "./Time";
@@ -21,23 +21,20 @@ const useStyles = makeStyles((theme) => ({
 
 export const Home = () => {
   const classes = useStyles();
-  const [cryptoName, setCryptoName] = useState("bitcoin");
-  const [timeFrame, setTimeFrame] = useState("day");
-  const [averagePrice, setAveragePrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(0);
-  const [minPrice, setMinPrice] = useState(0);
-  const [priceChange, setPriceChange] = useState(0);
-  const [percentChange, setPercentChange] = useState(0)
+  let [cryptoName, setCryptoName] = useState("bitcoin");
+  let [timeFrame, setTimeFrame] = useState("day");
+  let [averagePrice, setAveragePrice] = useState(0);
+  let [maxPrice, setMaxPrice] = useState(0);
+  let [minPrice, setMinPrice] = useState(0);
+  let [priceChange, setPriceChange] = useState(0);
+  let [percentChange, setPercentChange] = useState(0);
 
-  
   const cryptoHandler = (crypto) => {
     setCryptoName(crypto);
   }
-
   const timeHandler = (timeframe) => {
     setTimeFrame(timeframe);
   }
-
   const averagePriceHandler = (average) => {
     setAveragePrice(average);
   }
@@ -47,11 +44,9 @@ export const Home = () => {
   const minPriceHandler = (min) => {
     setMinPrice(min);
   }
-
   const priceChangeHandler = (priceChange) => {
     setPriceChange(priceChange);
   }
-
   const percentChangeHandler = (percent) => {
     setPercentChange(percent);
   }
@@ -75,12 +70,16 @@ export const Home = () => {
               <Graph
                 cryptoName={cryptoName}
                 timeFrame={timeFrame}
+                cryptoHandler={cryptoHandler}
                 averagePriceHandler={averagePriceHandler}
                 maxPriceHandler={maxPriceHandler}
                 minPriceHandler={minPriceHandler}
                 priceChangeHandler={priceChangeHandler}
                 percentChangeHandler={percentChangeHandler}
               />
+              <Typography variant="caption" align="right" display="block" gutterBottom>
+                Powered by CoinGecko API
+              </Typography>
               <TimeSelectors
                 timeHandler={timeHandler}
               />
@@ -91,10 +90,6 @@ export const Home = () => {
               <WatchList
                 cryptoHandler={cryptoHandler}
                 cryptoName={cryptoName}
-                averagePrice={averagePrice}
-                minPrice={minPrice}
-                maxPrice={maxPrice}
-                percentChange={percentChange}
               />
             </Paper>
           </Grid>

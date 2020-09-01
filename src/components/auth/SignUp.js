@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Redirect } from "react-router-dom"
-import { Grid, TextField, Button, Typography } from "@material-ui/core";
+import { Grid, TextField, Button, Typography, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Axios from "axios";
 import { PocketBrokerContext } from "../../context/PocketBrokerContext";
@@ -8,8 +8,12 @@ import url from '../../url-config';
 
 const useStyles = makeStyles(theme => ({
   formContainer: {
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: "#f0eace",
+    borderRadius: "2%",
   },
+  spacing: {
+    margin: '5px 5px',
+  }
 }));
 
 export function SignUp() {
@@ -54,41 +58,33 @@ export function SignUp() {
   };
 
   return (
-    <div>
-      <Grid container>
-        <Grid item>
+    <Box borderRadius="25%" style={{ margin: "10% 35%", justifyContent: "center" }}>
+      <Grid
+        className={classes.formContainer}
+        component="form"
+        container
+        item
+        alignItems="center"
+        justify="space-between"
+        direction="column"
+        onSubmit={signUpUser}
+      >
+        <Grid style={{ display: "flex", flexDirection: "column" }}>
 
-        </Grid>
-        <Grid
-          className={classes.formContainer}
-          component="form"
-          container
-          item
-          alignItems="center"
-          justify="space-between"
-          direction="column"
-          onSubmit={signUpUser}
-        >
-          <div />
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <Grid container="center">
+          <TextField label="First Name" margin="normal" onChange={e => setFirstName(e.target.value)} />
+          <TextField label="Last Name" margin="normal" onChange={e => setLastName(e.target.value)} />
+          <TextField label="Email" type="email" margin="normal" onChange={e => setEmail(e.target.value)} />
+          <TextField label="Phone Number" type="phone" margin="normal" onChange={e => setPhoneNumber(e.target.value)} />
+          <TextField label="Password" type="password" margin="normal" onChange={e => setPassword(e.target.value)} />
 
-            </Grid>
-            <TextField label="First Name" margin="normal" onChange={e => setFirstName(e.target.value)} />
-            <TextField label="Last Name" margin="normal" onChange={e => setLastName(e.target.value)} />
-            <TextField label="Email" type="email" margin="normal" onChange={e => setEmail(e.target.value)} />
-            <TextField label="Phone Number" type="phone" margin="normal" onChange={e => setPhoneNumber(e.target.value)} />
-            <TextField label="Password" type="password" margin="normal" onChange={e => setPassword(e.target.value)} />
-
-            <Button color="primary" onClick={signUpUser} variant="contained" width="100%">
-              Submit
+          <Button color="secondary" onClick={signUpUser} variant="contained" style={{width:"100%", margin:"10px 0px"}}>
+            Submit
           </Button>
-            <Typography>
-              Already signed up? <a href="/login">Login</a>
-            </Typography>
-          </div>
+          <Typography style={{ margin: '5px' }}>
+            Already signed up? <a href="/login">Login</a>
+          </Typography>
         </Grid>
       </Grid>
-    </div>
+    </Box>
   );
 };

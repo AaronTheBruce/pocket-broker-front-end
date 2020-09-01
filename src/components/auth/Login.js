@@ -11,6 +11,7 @@ import '../../index.css';
 const useStyles = makeStyles((theme) => ({
   formContainer: {
     backgroundColor: "#f0eace",
+    borderRadius: "2%",
   },
 }));
 
@@ -41,7 +42,7 @@ export const Login = () => {
     return <Redirect to="/" />;
   }
   return (
-    <Box borderRadius="25%" style={{ margin: "10% 35%", justifyContent: "center" }}>
+    <Box style={{ margin: "10% 35%", justifyContent: "center" }}>
       <Grid
         className={classes.formContainer}
         container
@@ -65,10 +66,10 @@ export const Login = () => {
           onChange={e => setPassword(e.target.value)}>
         </TextField>
         <Grid container item direction="column" justify="center" alignContent="center">
-          <Button color="secondary" variant="contained" width="100%" onClick={loginUser}>Login</Button>
+          <Button color="secondary" variant="contained" width="100%" onClick={loginUser} style={{margin:"10px 0px"}}>Login</Button>
           <DemoUser />
         </Grid>
-        <Typography>
+        <Typography style={{margin: '10px'}}>
           <a href="/sign-up">Sign Up Here!</a>
         </Typography>
       </Grid>

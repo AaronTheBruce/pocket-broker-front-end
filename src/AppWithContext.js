@@ -59,7 +59,18 @@ export const AppWithContext = () => {
   return (
     <PocketBrokerContext.Provider
       className={classes.paper}
-      value={{authToken, isLoggedIn, login, logOut, currentUser, setCurrentUser, userId, setUserId, getUser, authAxios, url, }}
+      value={{
+        authToken,
+        isLoggedIn,
+        login,
+        logOut,
+        currentUser,
+        setCurrentUser,
+        userId,
+        setUserId,
+        getUser,
+        authAxios,
+        url, }}
     >
       <App accessToken={accessToken} className={classes.paper}/>
     </PocketBrokerContext.Provider>

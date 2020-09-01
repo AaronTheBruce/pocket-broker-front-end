@@ -66,7 +66,7 @@ export const Home = () => {
           <Grid item xs={12} sm={9}>
             <Paper
               className={classes.paper}
-              style={{ height: '500px', }}>
+              style={{ height: '500px' }}>
               <Graph
                 cryptoName={cryptoName}
                 timeFrame={timeFrame}
@@ -112,14 +112,14 @@ export const Home = () => {
               />
             </Paper>
           </Grid>
-          {/* <Grid item xs={6} sm={3}>
-            <Paper className={classes.paper}>xs=6 sm=3</Paper>
-          </Grid>
           <Grid item xs={6} sm={3}>
-            <Paper className={classes.paper}>xs=6 sm=3</Paper>
-          </Grid> */}
+            <Paper
+              className={classes.paper}
+              style={{height: '142px'}}
+            >xs=6 sm=3
+            </Paper>
+          </Grid>
         </Grid>
-        {/* <Button onClick={e => console.log(timeFrame)}>Test</Button> */}
       </Container>
     </React.Fragment>
   )

@@ -9,7 +9,7 @@ export const Graph = (props) => {
   const [minValue, setMinValue] = useState(null);
   const [maxValue, setMaxValue] = useState(null);
   const [currentData, setCurrentData] = useState([]);
-  const {cryptoName, timeFrame} = props;
+  const { cryptoName, timeFrame } = props;
 
   // Unix Epoch TimeFrames in seconds
   const one_hour_unix = 3600;
@@ -94,37 +94,37 @@ export const Graph = (props) => {
   }
 
   const getData = async () => {
-      // get the startTime and endTime to use in the api call, fetch, then jsonify the data and set prices in current data
-      let start_time = getUnixTimeAgo(); // 1597867200
-      let end_time = dateToUnix(new Date()); // 1597928927
-      const api = `${coinGecko}/coins/${cryptoName}/market_chart/range?vs_currency=usd&from=${start_time}&to=${end_time}/`;
-      let data = await fetch(api);
-      let json = await data.json();
-      setCurrentData(json.prices);
+    // get the startTime and endTime to use in the api call, fetch, then jsonify the data and set prices in current data
+    let start_time = getUnixTimeAgo(); // 1597867200
+    let end_time = dateToUnix(new Date()); // 1597928927
+    const api = `${coinGecko}/coins/${cryptoName}/market_chart/range?vs_currency=usd&from=${start_time}&to=${end_time}/`;
+    let data = await fetch(api);
+    let json = await data.json();
+    setCurrentData(json.prices);
 
-      // establish local min/max values to control the graph scale
-      let min = json.prices[0][1];
-      let max = json.prices[1][1];
-      let first = json.prices[0][1]; // get the first and last prices to see percent change
-      let lastPrice = json.prices[json.prices.length-1][1];
-      let total = 0; // total for getting the average price
+    // establish local min/max values to control the graph scale
+    let min = json.prices[0][1];
+    let max = json.prices[1][1];
+    let first = json.prices[0][1]; // get the first and last prices to see percent change
+    let lastPrice = json.prices[json.prices.length - 1][1];
+    let total = 0; // total for getting the average price
 
-      json.prices.forEach(price => {
-        total += price[1]; // get the sum of all prices
-        if (price[1] < min) min = price[1];
-        if (price[1] > max) max = price[1];
-      });
+    json.prices.forEach(price => {
+      total += price[1]; // get the sum of all prices
+      if (price[1] < min) min = price[1];
+      if (price[1] > max) max = price[1];
+    });
 
-      // find the percent change from the first and last numbers
-      let percentChange = getPercentChange(first, lastPrice)
-      let priceChange = getPriceChange(first, lastPrice);
-      setMinValue(min);
-      setMaxValue(max);
-      props.priceChangeHandler(priceChange);
-      props.percentChangeHandler(percentChange);
-      props.averagePriceHandler(Number((total / json.prices.length).toFixed(2)));
-      props.minPriceHandler(Number(min.toFixed(2)));
-      props.maxPriceHandler(Number(max.toFixed(2)));
+    // find the percent change from the first and last numbers
+    let percentChange = getPercentChange(first, lastPrice)
+    let priceChange = getPriceChange(first, lastPrice);
+    setMinValue(min);
+    setMaxValue(max);
+    props.priceChangeHandler(priceChange);
+    props.percentChangeHandler(percentChange);
+    props.averagePriceHandler(Number((total / json.prices.length).toFixed(2)));
+    props.minPriceHandler(Number(min.toFixed(2)));
+    props.maxPriceHandler(Number(max.toFixed(2)));
   }
 
   useEffect(() => {
@@ -163,25 +163,24 @@ export const Graph = (props) => {
       title: "TimeFrame",
       labelAngle: -20,
       labelFormatter: function (e) {
-        if(props.timeFrame.toLowerCase().trim() === "year"){
+        if (props.timeFrame.toLowerCase().trim() === "year") {
           return CanvasJSReact.CanvasJS.formatDate(e.value, "MMM YYYY");
         }
-        if(props.timeFrame.toLowerCase().trim() === "month"){
+        if (props.timeFrame.toLowerCase().trim() === "month") {
           return CanvasJSReact.CanvasJS.formatDate(e.value, "MMM DD YYYY");
         }
-        if(props.timeFrame.toLowerCase().trim() === "week"){
+        if (props.timeFrame.toLowerCase().trim() === "week") {
           return CanvasJSReact.CanvasJS.formatDate(e.value, "MMM DD DDD");
         }
-        if(props.timeFrame.toLowerCase().trim() === "day"){
+        if (props.timeFrame.toLowerCase().trim() === "day") {
           return CanvasJSReact.CanvasJS.formatDate(e.value, "hh:mm TT");
         }
-
       }
     },
     axisY: {
       title: "Value(USD)",
-      viewportMaximum: maxValue+0.001,
-      viewportMinimum: minValue-0.001,
+      viewportMaximum: maxValue + 0.005,
+      viewportMinimum: minValue - 0.001,
     },
     data: [{
       type: "line",

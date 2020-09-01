@@ -66,10 +66,10 @@ export const Login = () => {
           onChange={e => setPassword(e.target.value)}>
         </TextField>
         <Grid container item direction="column" justify="center" alignContent="center">
-          <Button color="secondary" variant="contained" width="100%" onClick={loginUser} style={{margin:"10px 0px"}}>Login</Button>
+          <Button color="secondary" variant="contained" width="100%" onClick={loginUser} style={{ margin: "10px 0px" }}>Login</Button>
           <DemoUser />
         </Grid>
-        <Typography style={{margin: '10px'}}>
+        <Typography style={{ margin: '10px' }}>
           <a href="/sign-up">Sign Up Here!</a>
         </Typography>
       </Grid>

@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
 
 export function SignUp() {
   const classes = useStyles();
-  const { login, authToken, setUserID, getUser } = useContext(PocketBrokerContext);
+  const { login, authToken, setUserId, getUser } = useContext(PocketBrokerContext);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -39,7 +39,7 @@ export function SignUp() {
       if (res.status === 200) {
         const { access_token, user_id } = res.data;
         login(access_token);
-        setUserID(user_id);
+        setUserId(user_id);
         getUser(user_id);
       }
     }).catch(err => {
@@ -63,7 +63,6 @@ export function SignUp() {
         className={classes.formContainer}
         component="form"
         container
-        item
         alignItems="center"
         justify="space-between"
         direction="column"

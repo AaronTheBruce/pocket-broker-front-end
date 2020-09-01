@@ -5,7 +5,7 @@ import { PermIdentity } from "@material-ui/icons";
 import { PocketBrokerContext } from '../../context/PocketBrokerContext'
 
 export const DemoUser = () => {
-  const { login, authToken, setUserID, getUser, authAxios } = useContext(PocketBrokerContext);
+  const { login, authToken, setUserId, getUser, authAxios } = useContext(PocketBrokerContext);
 
   const email = 'demouser@demo.com'
   const password = 'password';
@@ -24,7 +24,7 @@ export const DemoUser = () => {
         if (res.status === 200) {
           const { access_token, user_id } = res.data;
           login(access_token);
-          setUserID(user_id);
+          setUserId(user_id);
           getUser(user_id)
         }
       })

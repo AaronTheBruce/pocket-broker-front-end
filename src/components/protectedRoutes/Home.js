@@ -54,6 +54,7 @@ export const Home = () => {
   return (
     <React.Fragment >
       <CssBaseline />
+      <div style={{ margin: '30px' }} />
       <Container fixed component="div" className={classes.root} style={{ height: '100vh' }}>
         <Grid container spacing={3}>
           <Grid container >
@@ -112,13 +113,13 @@ export const Home = () => {
               />
             </Paper>
           </Grid>
-          <Grid item xs={6} sm={3}>
+          {/* <Grid item xs={6} sm={3}>
             <Paper
               className={classes.paper}
               style={{height: '142px'}}
             >xs=6 sm=3
             </Paper>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Container>
     </React.Fragment>

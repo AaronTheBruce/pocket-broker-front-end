@@ -6,7 +6,7 @@ Ambition; implement a system akin to a stock trainer which would allow users to 
 https://pocket-broker-front-end.herokuapp.com
 
 ## Tech Stack
-React, Flask, Restx, Docker, CoinGecko API
+React, Flask_RestX, CoinGecko API, postgreSQL
 
 #### API URL
 api.coingecko.com/api/v3

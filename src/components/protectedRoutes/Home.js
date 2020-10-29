@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Container, CssBaseline, Paper, Typography } from "@material-ui/core";
 import { Graph } from "./Graph.js";
-import { WatchList } from "./WatchListItems"
+import { WatchList } from "./NewWatchListItems"
 import { TimeSelectors } from "./Time";
 import { NavBar } from "./NavBar";
 import { Stats } from "./Stats";
+import fetch from "node-fetch";
+const coinGecko = "https://api.coingecko.com/api/v3";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const Home = () => {
   const classes = useStyles();
+  let [cryptoList, setCryptoList] = useState(null);
   let [cryptoName, setCryptoName] = useState("bitcoin");
   let [timeFrame, setTimeFrame] = useState("day");
   let [averagePrice, setAveragePrice] = useState(0);
@@ -28,6 +31,7 @@ export const Home = () => {
   let [minPrice, setMinPrice] = useState(0);
   let [priceChange, setPriceChange] = useState(0);
   let [percentChange, setPercentChange] = useState(0);
+
 
   const cryptoHandler = (crypto) => {
     setCryptoName(crypto);
@@ -50,6 +54,18 @@ export const Home = () => {
   const percentChangeHandler = (percent) => {
     setPercentChange(percent);
   }
+
+  const getCryptos = async () => {
+    const data = await fetch(`${coinGecko}/coins/list`)
+    const res = await data.json();
+    setCryptoList(res);
+  }
+
+  useEffect(() => {
+    if(!cryptoList){
+      (() => getCryptos())()  // We get the data in an array cryptos[i].id/symbol/name
+    }
+  }, [cryptoList])
 
   return (
     <React.Fragment >
@@ -88,10 +104,16 @@ export const Home = () => {
           </Grid>
           <Grid item xs={6} sm={3}>
             <Paper className={classes.paper} style={{ height: '500px' }}>
-              <WatchList
+              {
+                cryptoList?
+                <WatchList
+                cryptoList={cryptoList}
                 cryptoHandler={cryptoHandler}
                 cryptoName={cryptoName}
-              />
+                />
+                :
+                <div>...Loading</div>
+              }
             </Paper>
           </Grid>
           {/* <Grid item xs={6} sm={1}>

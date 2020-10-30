@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Container, CssBaseline, Paper, Typography } from "@material-ui/core";
 import { Graph } from "./Graph.js";
-import { WatchList } from "./WatchListItems"
+import { WatchList } from "./NewWatchListItems" // swapped out old component for development
 import { TimeSelectors } from "./Time";
 import { NavBar } from "./NavBar";
 import { Stats } from "./Stats";

@@ -16,7 +16,7 @@ const Cryptos = (props) => {
       button
       id={props.id}
       key={props.id}
-      selected={props.selectedIndex === props.i}
+      selected={props.selectedIndex === props.id}
       onClick={(event) => handleListItemClick(event, props.i)}
     >
       <ListItemIcon>

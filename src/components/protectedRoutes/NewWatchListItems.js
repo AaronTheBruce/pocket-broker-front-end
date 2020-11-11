@@ -48,7 +48,6 @@ export const WatchList = props => {
          crypto={crypto}
          id={crypto.name}
          handleSelectedIndex={handleSelectedIndex}
-         selectedIndex={selectedIndex}
          cryptoHandler={props.cryptoHandler} />):
          <div>...Loading</div>
         }

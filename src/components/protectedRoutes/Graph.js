@@ -138,7 +138,6 @@ export const Graph = (props) => {
   const memoizeCryptoData = useCallback(
     () => {
       var dps = [];
-      console.log("currentData", currentData);
       currentData.forEach(item => {
         // convert unix date to seconds for ease of conversion to UTC
         let date = unixToDate(Math.floor(item[0] / 1000));

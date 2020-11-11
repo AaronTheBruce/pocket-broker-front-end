@@ -5,10 +5,9 @@ import { ListItem, ListItemIcon, ListItemText, Avatar } from "@material-ui/core"
 //
 const Cryptos = (props) => {
 
-  // const [selectedIndex, setSelectedIndex] = useState(0);
-
   const handleListItemClick = (event, index) => {
-    // props.handleSelectedIndex(index);
+    console.log("event id", event.currentTarget.id);
+    props.handleSelectedIndex(index);
     props.cryptoHandler(event.currentTarget.id);
   };
 
@@ -17,7 +16,7 @@ const Cryptos = (props) => {
       button
       id={props.id}
       key={props.id}
-      selected={props.handleSelectedIndex(props.i)}
+      selected={props.selectedIndex === props.i}
       onClick={(event) => handleListItemClick(event, props.i)}
     >
       <ListItemIcon>

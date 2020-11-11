@@ -138,6 +138,7 @@ export const Graph = (props) => {
   const memoizeCryptoData = useCallback(
     () => {
       var dps = [];
+      console.log("currentData", currentData);
       currentData.forEach(item => {
         // convert unix date to seconds for ease of conversion to UTC
         let date = unixToDate(Math.floor(item[0] / 1000));
@@ -179,8 +180,8 @@ export const Graph = (props) => {
     },
     axisY: {
       title: "Value(USD)",
-      viewportMaximum: maxValue + 0.005,
-      viewportMinimum: minValue - 0.001,
+      viewportMaximum: maxValue + 0.0001,
+      viewportMinimum: minValue - 0.0001,
     },
     data: [{
       type: "line",

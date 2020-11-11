@@ -43,7 +43,13 @@ export const WatchList = props => {
       aria-label="crypto watch list"
       >
         {supportedCryptos ?
-         supportedCryptos.map((crypto, i) => <Cryptos key={i} crypto={crypto} i={i} handleSelectedIndex={handleSelectedIndex} cryptoHandler={props.cryptoHandler} />):
+         supportedCryptos.map((crypto, i) => <Cryptos
+         key={i}
+         crypto={crypto}
+         id={crypto.name}
+         handleSelectedIndex={handleSelectedIndex}
+         selectedIndex={selectedIndex}
+         cryptoHandler={props.cryptoHandler} />):
          <div>...Loading</div>
         }
         {/* <Button onClick={() => console.log(props.cryptoList)}>Log Cryptos</Button> */}

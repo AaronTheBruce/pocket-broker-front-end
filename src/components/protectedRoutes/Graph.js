@@ -138,13 +138,14 @@ export const Graph = (props) => {
   const memoizeCryptoData = useCallback(
     () => {
       var dps = [];
+      console.log("currentData", currentData);
       currentData.forEach(item => {
         // convert unix date to seconds for ease of conversion to UTC
         let date = unixToDate(Math.floor(item[0] / 1000));
         // create tooltip string
         let dataDate = `${daysOfTheWeek[date.getDay()]}, ${date.getDate()} ${monthsOfTheYear[date.getMonth()]} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} (Eastern Time)`;
         // Grab the price for the 2 sub-item-Item around round to 2 decimal places
-        let price = item[1].toFixed(2);
+        let price = item[1].toFixed(8);
         dps.push({ x: date, y: Number(price), label: dataDate });
       });
       return dps;
@@ -179,8 +180,8 @@ export const Graph = (props) => {
     },
     axisY: {
       title: "Value(USD)",
-      viewportMaximum: maxValue + 0.005,
-      viewportMinimum: minValue - 0.001,
+      viewportMaximum: maxValue + 0.00001,
+      viewportMinimum: minValue - 0.00001,
     },
     data: [{
       type: "line",

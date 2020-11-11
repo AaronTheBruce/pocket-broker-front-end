@@ -1,115 +1,59 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles';
-import { List, ListItem, ListItemIcon, ListItemText, Avatar } from "@material-ui/core";
+import { List } from "@material-ui/core";
+import Cryptos from "./Cryptos";
+import url from '../../url-config';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
     maxWidth: 360,
+    overflow: 'auto',
     backgroundColor: theme.palette.background.paper,
   },
 }))
 
 export const WatchList = props => {
   const classes = useStyles();
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [supportedCryptos, setSupportedCryptos] = useState([]);
+  const [selectedIndex, setSelectedIndex] = useState(0);  // selectedIndex state held in watchListItems Component
 
-  const handleListItemClick = (event, index) => {
-    setSelectedIndex(index);
-    props.cryptoHandler(event.currentTarget.id);
-  };
+  const getSupportedCryptos = async () => {
+    // retrieve the list of supported cryptos from the database
+    const result = await fetch(`${url}/cryptos`);
+    const data = await result.json();
+    // store in state and render List
+    setSupportedCryptos(data.crypto);
+  }
+
+  const selectedHandler = (index) => {  // handler for updated the selected index
+    setSelectedIndex(index)
+  }
+
+  useEffect(() => {
+    (() => getSupportedCryptos())() // pull in the supported cryptos from the pg cryptos table on render
+  }, [])
 
   return (
-    <div className={classes.root}>
-      <List component="nav" aria-label="crypto watch list">
-        <ListItem
-        button
-        id="bitcoin"
-        selected={selectedIndex === 0}
-        onClick={(event) => handleListItemClick(event, 0) }
-        >
-          <ListItemIcon>
-            <Avatar alt="bitcoin-logo" src="/images/bitcoin-logo.png" />
-          </ListItemIcon>
-          <ListItemText primary="Bitcoin" />
-        </ListItem>
-        <ListItem
-        button
-        id="ethereum"
-        selected={selectedIndex === 1}
-        onClick={(event) => handleListItemClick(event, 1)}
-        >
-          <ListItemIcon>
-            <Avatar alt="ethereum-logo" src="/images/ethereum-logo.png" />
-          </ListItemIcon>
-          <ListItemText primary="Ethereum" />
-        </ListItem>
-        <ListItem
-        button
-        id="litecoin"
-        selected={selectedIndex === 2}
-        onClick={(event) => handleListItemClick(event, 2)}
-        >
-          <ListItemIcon>
-            <Avatar alt="litecoin-logo" src="/images/litecoin-logo.jpg" />
-          </ListItemIcon>
-          <ListItemText primary="LiteCoin" />
-        </ListItem>
-        <ListItem
-        button
-        id="bitcoin-cash"
-        selected={selectedIndex === 3}
-        onClick={(event) => handleListItemClick(event, 3)}
-        >
-          <ListItemIcon>
-            <Avatar alt="bitcoin-cash-logo" src="/images/bitcoin-cash-logo.png" />
-          </ListItemIcon>
-          <ListItemText primary="Bitcoin Cash" />
-        </ListItem>
-        <ListItem
-        button
-        id="ripple"
-        selected={selectedIndex === 4}
-        onClick={(event) => handleListItemClick(event, 4)}
-        >
-          <ListItemIcon>
-            <Avatar alt="ripple-logo" src="/images/ripple-logo.png" />
-          </ListItemIcon>
-          <ListItemText primary="Ripple" />
-        </ListItem>
-        <ListItem
-        button
-        id="basic-attention-token"
-        selected={selectedIndex === 5}
-        onClick={(event) => handleListItemClick(event, 5)}
-        >
-          <ListItemIcon>
-            <Avatar alt="basic-attention-token-logo" src="/images/basic-attention-token-logo.png" />
-          </ListItemIcon>
-          <ListItemText primary="Basic Attention Token" />
-        </ListItem>
-        <ListItem
-        button
-        id="dogecoin"
-        selected={selectedIndex === 6}
-        onClick={(event) => handleListItemClick(event, 6)}
-        >
-          <ListItemIcon>
-            <Avatar alt="dogecoin-logo" src="/images/dogecoin-logo.jpg" />
-          </ListItemIcon>
-          <ListItemText primary="Dogecoin" />
-        </ListItem>
-        <ListItem
-        button
-        id="ethereum-classic"
-        selected={selectedIndex === 7}
-        onClick={(event) => handleListItemClick(event, 7)}
-        >
-          <ListItemIcon>
-            <Avatar alt="ethereum-classic-logo" src="/images/ethereum-classic-logo.jpg" />
-          </ListItemIcon>
-          <ListItemText primary="Ethereum Classic" />
-        </ListItem>
+    <div className={classes.root} >
+      <List
+        component="nav"
+        dense={true}  // make the WatchList a bit more compact and sleek looking
+        aria-label="crypto watch list"
+      >
+        {supportedCryptos
+          ?
+          supportedCryptos.map((crypto, i) => <Cryptos
+            key={i} // key for helping map the supportedCryptos
+            index={i} // index is for keeping track of each crypto for the selectedIndex feature
+            id={crypto.name}  // id is stored as a crypto name
+            selectedIndex={selectedIndex}  // pass the current selected index as a prop
+            selectedHandler={selectedHandler}  // pass the selectedHandler function as a prop
+            cryptoHandler={props.cryptoHandler} // pass the cryptoHandler function as a prop
+          />)
+          :
+          <div>...Loading</div> // while the component is loading in, display a loading message
+        }
       </List>
     </div>
   );

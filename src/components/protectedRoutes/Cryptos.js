@@ -1,15 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { ListItem, ListItemIcon, ListItemText, Avatar } from "@material-ui/core";
 
-// This component should help dynamically render crypto currencies in the WatchList
-//
 const Cryptos = (props) => {
-
   const clickHandler = (eventTargetId, index) => {
     props.selectedHandler(index);
     props.cryptoHandler(eventTargetId);
   }
-
   return (
     <ListItem
       button

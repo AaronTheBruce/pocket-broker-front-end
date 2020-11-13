@@ -6,6 +6,7 @@ import { WatchList } from "./WatchListItems" // swapped out old component for de
 import { TimeSelectors } from "./Time";
 import { NavBar } from "./NavBar";
 import { Stats } from "./Stats";
+import { Events } from "./Events.js";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -97,9 +98,6 @@ export const Home = () => {
           {/* <Grid item xs={6} sm={1}>
             <IconButton className="fa fa-plus-circle">Notif</IconButton>
           </Grid> */}
-          {/* <Grid item xs={6} sm={4}>
-            <Paper className={classes.paper}>Event Config</Paper>
-          </Grid> */}
           <Grid item xs={12} sm={9}>
             <Paper
               className={classes.paper}
@@ -111,6 +109,11 @@ export const Home = () => {
                 priceChange={priceChange}
                 percentChange={percentChange}
               />
+            </Paper>
+          </Grid>
+          <Grid item xs={12} sm={9}>
+            <Paper className={classes.paper}>
+              <Events />
             </Paper>
           </Grid>
           {/* <Grid item xs={6} sm={3}>

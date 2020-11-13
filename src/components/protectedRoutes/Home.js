@@ -17,7 +17,10 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.secondary,
-  }
+  },
+  controlPanel: {
+    height: "345px",
+  },
 }));
 
 export const Home = () => {
@@ -95,13 +98,8 @@ export const Home = () => {
               />
             </Paper>
           </Grid>
-          {/* <Grid item xs={6} sm={1}>
-            <IconButton className="fa fa-plus-circle">Notif</IconButton>
-          </Grid> */}
           <Grid item xs={12} sm={9}>
-            <Paper
-              className={classes.paper}
-            >
+            <Paper className={classes.paper}>
               <Stats
                 averagePrice={averagePrice}
                 minPrice={minPrice}
@@ -110,16 +108,20 @@ export const Home = () => {
                 percentChange={percentChange}
               />
             </Paper>
-          </Grid>
-          <Grid item xs={12} sm={9}>
+            <br />  {/* Cheap way to create space */}
             <Paper className={classes.paper}>
               <Events />
             </Paper>
           </Grid>
+          <Grid item xs={3} sm={3}>
+            <Paper className={classes.controlPanel}>
+              Notif
+            </Paper>
+          </Grid>
           {/* <Grid item xs={6} sm={3}>
             <Paper
-              className={classes.paper}
-              style={{height: '142px'}}
+            className={classes.paper}
+            style={{height: '142px'}}
             >xs=6 sm=3
             </Paper>
           </Grid> */}

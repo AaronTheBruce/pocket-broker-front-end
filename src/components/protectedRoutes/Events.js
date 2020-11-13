@@ -7,11 +7,21 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button'
+// import GridList from '@material-ui/core/GridList';
+// import GridListTile from '@material-ui/core/GridListTile';
+// import GridListTileBar from '@material-ui/core/GridListTileBar';
+// import IconButton from '@material-ui/core/IconButton';
+// import StarBorderIcon from '@material-ui/icons/StarBorder';
+// import tileData from './tileData';
 
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
   },
+  scroll: {
+    overflow: 'hidden',
+  }
 });
 
 // function createData(crypto, percent_change, sell_price, buy_price, purchase_power) {
@@ -32,7 +42,7 @@ export const Events = (props) => {
   const classes = useStyles();
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} >
       <Table className={classes.table} aria-label="caption table">
         <TableHead>
           <TableRow>
@@ -46,15 +56,17 @@ export const Events = (props) => {
             <TableCell align="center">Delete Button</TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
-          <TableCell align="center">In Dev</TableCell>
-          <TableCell align="center">Bitcoin</TableCell>
-          <TableCell align="center">3.00%</TableCell>
-          <TableCell align="center">20000</TableCell>
-          <TableCell align="center">10000</TableCell>
-          <TableCell align="center">$50</TableCell>
-          <TableCell align="center">Edit Button</TableCell>
-          <TableCell align="center">Delete Button</TableCell>
+        <TableBody className={classes.scroll}>
+          <TableRow>
+            <TableCell>In Dev</TableCell>
+            <TableCell align="center">Bitcoin</TableCell>
+            <TableCell align="center">+3.00%</TableCell>
+            <TableCell align="center">$20000</TableCell>
+            <TableCell align="center">$10000</TableCell>
+            <TableCell align="center">$50</TableCell>
+            <TableCell align="center"><Button>Edit</Button></TableCell>
+            <TableCell align="center"><Button>Delete</Button></TableCell>
+          </TableRow>
         </TableBody>
       </Table>
     </TableContainer>
